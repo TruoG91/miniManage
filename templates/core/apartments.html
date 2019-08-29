@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+	<link href="{% static 'css/pages.css' %}" rel="stylesheet">
+{% endblock %}
+{% block navmenu %}
+<li class="submenu">
+	 <a href="#">
+	    <i class="glyphicon glyphicon-list"></i> Rooms
+	    <span class="caret pull-right"></span>
+	 </a>
+	 <!-- Sub menu -->
+	 <ul>
+	    {% for room in rooms %}
+	    <li><a href="#">{{ room.room_no }}</a></li>
+	    {% endfor %}
+	</ul>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12 panel-warning">
+		<div class="content-box-header panel-heading">
+			<div class="panel-title ">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a></li>
+					<li class="breadcrumb-item active">{{ apartment_name }}</li>
+				</ol>
+			</div>
+		
+		<div class="panel-options">
+	            <div class="dropdown">
+	            <a href="#" data-rel="reload"><i class="glyphicon glyphicon-refresh"></i></a>
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="glyphicon glyphicon-cog"></i></a>
+		            <ul class="dropdown-menu animated fadeInUp">
+	                  <li><a href="#">Edit</a></li>
+	                  <li><a href="#">Add</a></li>
+	                </ul>
+            	</div>
+		</div>
+		</div>
+
+		<div class="content-box-large box-with-header">
+			<div class="row">
+				{% for room in rooms %}
+				<div class="contain-cards col-md-3">
+					<div class="element-card">
+						<div class="front-facing " 
+						{% if room.room_available_status == False %}
+						style="
+						background-image: radial-gradient(circle, #ecf0f1, #e4e8e9, #dce0e1, #d4d9d9, #ccd1d1);
+						"
+						{% endif %}>
+							<h1 class="rooms-no">{{ room.room_no }}</h1>
+							<p class="rooms-type">{{ room.room_type }}</p>
+							<span class="rooms-no-label">Room No:</span>
+							<span class="rooms-status">63.54</span>
+						</div>
+						<div class="back-facing " 
+						{% if room.room_available_status == False %}
+						style="
+						background-image: radial-gradient(circle, #ecf0f1, #e4e8e9, #dce0e1, #d4d9d9, #ccd1d1);
+						"
+						{% endif %}>
+							<p>Copper is a chemical element with symbol Cu</p>
+							<p><a class="btn" href="https://en.wikipedia.org/wiki/Copper" target="_blank">More info</a></p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>		
+	</div>		
+</div>	
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/cards.js' %}"></script>
+{% endblock %}
